@@ -17,10 +17,17 @@
 
     function preload() {
 
+        this.game.stage.backgroundColor = '#6B8CFF';
+        this.game.load.tilemap('map', 'assets/level1-1.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.image('tileset', 'assets/tile_set.png');
     }
 
     function create() {
-
+        map = this.add.tilemap('map');
+        map.addTilesetImage('tile_set', 'tileset');
+        layer = map.createLayer('Tile Layer 1');
+        layer.resizeWorld();
+        map.setCollisionBetween(0, 100);
     }
 
     function update() {
