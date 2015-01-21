@@ -41,6 +41,8 @@
         player.animations.add('right', [1,2,3], 10, true);
 
         cursors = game.input.keyboard.createCursorKeys();
+
+        game.camera.follow(player);
     }
 
     function update() {
