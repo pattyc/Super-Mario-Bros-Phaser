@@ -17,9 +17,10 @@
 
     function preload() {
 
-        this.game.stage.backgroundColor = '#6B8CFF';
-        this.game.load.tilemap('map', 'assets/level1-1.json', null, Phaser.Tilemap.TILED_JSON);
-        this.game.load.image('tileset', 'assets/tile_set.png');
+        game.stage.backgroundColor = '#6B8CFF';
+        game.load.tilemap('map', 'assets/level1-1.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image('tileset', 'assets/tile_set.png');
+        game.load.spritesheet('mario', 'assets/small_mario.png', 16, 16);
     }
 
     function create() {
@@ -28,11 +29,41 @@
         layer = map.createLayer('Tile Layer 1');
         layer.resizeWorld();
         map.setCollisionBetween(0, 100);
+
+        player = game.add.sprite(50, game.world.height - 48, 'mario');
+        game.physics.arcade.enable(player);
+
+        player.anchor.setTo(.5,.5);
+        player.body.bounce.y = 0.2;
+        player.body.gravity.y = 300;
+        player.body.collideWorldBounds = true;
+
+        player.animations.add('right', [1,2,3], 10, true);
+
+        cursors = game.input.keyboard.createCursorKeys();
     }
 
     function update() {
-    
-}
+        game.physics.arcade.collide(player, layer);
+        player.body.velocity.x = 0;
+        if (cursors.right.isDown) {
+            if (player.scale.x < 0) {
+                player.scale.x *= -1;
+            }
+            player.body.velocity.x = 150;
+            player.animations.play('right');
+        }
+        else if (cursors.left.isDown) {
+            if (player.scale.x > 0) {
+                player.scale.x *= -1;
+            }
+            player.body.velocity.x = -150;
+            player.animations.play('right');
+        } else {
+            player.animations.stop();
+            player.frame = 0
+        }
+    }
 </script>
 
 </body>
