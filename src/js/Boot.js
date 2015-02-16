@@ -22,7 +22,7 @@ Mario.Boot.prototype = {
         else
         {
             //  Same goes for mobile settings.
-            //  In this case we're saying "scale the game, no lower than 480x260 and no higher than 1024x768"
+            //  In this case we're saying "scale the game"
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.scale.setMinMax(256, 240, 1024, 960);
             this.scale.forceLandscape = true;
@@ -34,8 +34,6 @@ Mario.Boot.prototype = {
     preload: function () {
 
         //  Here we load the assets required for our preloader (in this case a background and a loading bar)
-        this.load.image('preloaderBackground', 'assets/small_mario.png');
-        //this.load.image('preloaderBar', 'images/preloadr_bar.png');
 
     },
 

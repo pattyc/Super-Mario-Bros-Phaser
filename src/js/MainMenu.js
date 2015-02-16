@@ -19,7 +19,10 @@ Mario.MainMenu.prototype = {
         //
         //this.add.sprite(0, 0, 'titlepage');
 
-        this.playButton = this.add.button(100, 100, 'playButton', this.startGame, this, 'buttonOver', 'buttonOut', 'buttonOver');
+        this.title = this.add.sprite(0, 0, 'title');
+
+        this.game.stage.backgroundColor = '#6B8CFF';
+        this.playButton = this.add.button(100, 150, 'playButton', this.startGame, this, 'buttonOver', 'buttonOut', 'buttonOver');
 
     },
 

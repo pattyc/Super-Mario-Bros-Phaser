@@ -14,8 +14,7 @@ Mario.Preloader.prototype = {
 
         //	These are the assets we loaded in Boot.js
         //	A nice sparkly background and a loading progress bar
-        //this.background = this.add.sprite(0, 0, 'preloaderBackground');
-        //this.preloadBar = this.add.sprite(300, 400, 'preloaderBar');
+
 
         //	This sets the preloadBar sprite as a loader sprite.
         //	What that does is automatically crop the sprite from 0 to full-width
@@ -30,6 +29,11 @@ Mario.Preloader.prototype = {
         //this.load.bitmapFont('caslon', 'fonts/caslon.png', 'fonts/caslon.xml');
         //	+ lots of other required assets here
 
+
+        this.load.image('title', 'assets/title.jpg');
+        this.load.tilemap('map', 'assets/level1-1.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.image('tileset', 'assets/tile_set.png');
+        this.load.spritesheet('mario', 'assets/small_mario.png', 16, 16);
     },
 
     create: function () {
