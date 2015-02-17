@@ -1,45 +1,30 @@
 
 Mario.MainMenu = function (game) {
 
-    this.music = null;
-    this.playButton = null;
-
+    this.spaceKey;
 };
 
 Mario.MainMenu.prototype = {
 
     create: function () {
 
-        //	We've already preloaded our assets, so let's kick right into the Main Menu itself.
-        //	Here all we're doing is playing some music and adding a picture and button
-        //	Naturally I expect you to do something significantly better :)
-
-        //this.music = this.add.audio('titleMusic');
-        //this.music.play();
-        //
-        //this.add.sprite(0, 0, 'titlepage');
-
-        this.title = this.add.sprite(0, 0, 'title');
+        this.title = this.add.sprite(0, -50, 'title');
+        this.cursor = this.add.sprite(80, 150, 'cursor');
+        this.text = this.add.text(100, 147, text, style);
 
         this.game.stage.backgroundColor = '#6B8CFF';
-        this.playButton = this.add.button(100, 150, 'playButton', this.startGame, this, 'buttonOver', 'buttonOut', 'buttonOver');
-
+        this.spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     },
 
     update: function () {
 
-        //	Do some nice funky main menu effect here
-
+        if (this.spaceKey.isDown) {
+            this.startGame();
+        }
     },
 
     startGame: function (pointer) {
 
-        //	Ok, the Play Button has been clicked or touched, so let's stop the music (otherwise it'll carry on playing)
-        //this.music.stop();
-
-        //	And start the actual game
         this.state.start('Game');
-
     }
-
 };
