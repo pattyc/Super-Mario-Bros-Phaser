@@ -46,8 +46,8 @@ Mario.Game.prototype = {
         player.body.gravity.y = 1200;
         player.body.collideWorldBounds = true;
 
-        player.animations.add('left', [9, 8, 7], 10, true);
-        player.animations.add('right', [1, 2, 3], 10, true);
+        player.animations.add('left', [10, 9, 8], 10, true);
+        player.animations.add('right', [2, 3, 4], 10, true);
 
         cursors = this.game.input.keyboard.createCursorKeys();
         this.runKey = this.game.input.keyboard.addKey(Phaser.Keyboard.CONTROL);
@@ -60,16 +60,13 @@ Mario.Game.prototype = {
         this.game.physics.arcade.collide(player, layer);
 
         if (cursors.right.isDown) {
-            if (this.runKey.isDown) {
-                player.body.acceleration.x = 300;
-                if (player.body.velocity.x > 150) {
-                    player.body.velocity.x = 150;
-                }
-            } else {
-                player.body.acceleration.x = 150;
-                if (player.body.velocity.x > 100) {
-                    player.body.velocity.x = 100;
-                }
+
+            player.body.acceleration.x = 150;
+            if (player.body.velocity.x > 100) {
+                player.body.velocity.x = 100;
+            }
+            else if (player.body.velocity.x < 0) {
+                player.frame = 0;
             }
 
             if (player.body.blocked.down) {
@@ -77,9 +74,13 @@ Mario.Game.prototype = {
             }
         }
         else if (cursors.left.isDown) {
-            player.body.acceleration.x = -300;
-            if (player.body.velocity.x < -150) {
-                player.body.velocity.x = -150;
+
+            player.body.acceleration.x = -150;
+            if (player.body.velocity.x < -100) {
+                player.body.velocity.x = -100;
+            }
+            else if (player.body.velocity.x > 0) {
+                player.frame = 12;
             }
             if (player.body.blocked.down) {
                 player.animations.play('left');
@@ -93,12 +94,11 @@ Mario.Game.prototype = {
             }
             if (player.body.velocity.x > -5 && player.body.velocity.x < 5 && player.body.blocked.down) {
                 player.body.velocity.x = 0;
+                player.animations.stop();
                 if (player.animations.currentAnim.name == 'left') {
-                    player.animations.stop();
-                    player.frame = 10;
+                    player.frame = 11;
                 } else {
-                    player.animations.stop();
-                    player.frame = 0;
+                    player.frame = 1;
                 }
             }
         }
@@ -106,12 +106,12 @@ Mario.Game.prototype = {
         if (cursors.up.isDown && player.body.blocked.down) {
             jumpTimer = 1;
             player.body.velocity.y = -220;
-            if ((player.animations.currentAnim.name == 'left') || (player.frame == 10)) {
+            if ((player.animations.currentAnim.name == 'left') || (player.frame == 11)) {
                 player.animations.stop();
-                player.frame = 6;
+                player.frame = 7;
             } else {
                 player.animations.stop();
-                player.frame = 4;
+                player.frame = 5;
             }
         } else if (cursors.up.isDown && (jumpTimer != 0)) {
             if (jumpTimer > 15 || player.body.velocity.y == 0) {
@@ -123,6 +123,10 @@ Mario.Game.prototype = {
         } else if (this.jumpTimer != 0) {
             this.jumpTimer = 0;
         }
+
+    },
+
+    pauseGame: function () {
 
     },
 
